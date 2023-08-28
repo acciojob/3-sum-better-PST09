@@ -1,39 +1,32 @@
-
-
-  function threeSum(arr, target) {
+function threeSum(arr, target) {
 // write your code here
-	arr.sort();
-	let diff = Number.MAX_VALUE;
-	let ans = 0;
-
-	for(let i=0; i<arr.length; i++) {
-		let first = i;
-		let left = i+1;
-		let right = arr.length-1;
-		 while (left < right) {
-		 	let sum = arr[first] + arr[left] + arr[right];
-
-			 if (sum == target) {
-			 	return target;
-			 } else if (Math.abs(sum-target) < diff) {
-				diff = Math.abs(sum-target);
-				ans = sum;
-			 }
-
-			 if(sum < target) {
-				 left++;
-			 } else if (sum > target) {
-			 	right--;
-			 } else {
-				 break;
-			 }
-		 }
+	for(let i=0;i<arr.length-1;i++){
+		for(let j=0;j<arr.length-i-1;j++){
+			if (arr[j] > arr[j+1]){
+				const temp = arr[j];
+				arr[j] = arr[j+1];
+				arr[j+1] = temp;
+			}
+		}
 	}
-	 return ans;
-  
+	let sum = arr[0] + arr[1] + arr[2];
+	for(let i=0;i<arr.length-2;i++){
+		let left = i + 1;
+	    let right = arr.length-1;
+	    while(left < right){
+			const currentSum =arr[i]+arr[left]+arr[right];
+			if(Math.abs(currentSum - target) < Math.abs(sum - target)){
+				sum = currentSum;
+			}
+			if(currentSum < target){
+				left++;
+			}
+			else{
+				right--;
+			}
+		}
+	}
+	return sum;
 }
 
-
-}
-
-module.exports = threeSum;
+module.exports = threeSum;
